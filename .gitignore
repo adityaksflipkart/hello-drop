@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+*.iml
+target/
+tmp/
+dependency-reduced-pom.xml
+hello-world.iml
+hello-world.ipr
+hello-world.iws
+hello-world.iml
+
