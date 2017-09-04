@@ -1,7 +1,6 @@
 package com.flpkrt;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import com.flpkrt.entity.Address;
+import com.flpkrt.entity.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataBuilder;
 import org.hibernate.boot.MetadataSources;
@@ -26,24 +25,48 @@ import java.util.Set;
 
 public class Main {
     public static void main(String args[]) throws SQLException, ClassNotFoundException {
-
             EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
-            CriteriaBuilder cb=em.getCriteriaBuilder();
+            User u=new User();
+            u.setFirstname("aditya");
+            u.setLastname("singh");
 
-            CriteriaQuery<Address> query= cb.createQuery(Address.class);
-            Root<Address> from=query.from(Address.class);
-            query.select(from);
-            Path<String> city=from.get("city");
-            query.where(cb.like(city,cb.parameter(String.class,"pattern")));
+            UserAddress uad=new UserAddress();
+            uad.setStreet("green glen");
 
-            List<Address> list=em.createQuery(query).setParameter("pattern","%banglore%").getResultList();
+            u.setAddress(uad);
+            u.setDeliveryAddress(uad);
+
+            em.getTransaction().begin();
+            em.persist(u);
+            em.flush();
+            em.getTransaction().commit();
+
+
+            List<User> list=em.createQuery("select u from User u").getResultList();
+        for (User u1:list) {
+            System.out.println(u1);
+        }
+    }
+    public static void subSelect(){
+        EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
+        SubAddress subAd=em.find(SubAddress.class,"2");
+        System.out.println(subAd);
+    }
+    public static void queryExample(){
+        EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
+        CriteriaBuilder cb=em.getCriteriaBuilder();
+
+        CriteriaQuery<Address> query= cb.createQuery(Address.class);
+        Root<Address> from=query.from(Address.class);
+        query.select(from);
+        Path<String> city=from.get("city");
+        query.where(cb.like(city,cb.parameter(String.class,"pattern")));
+
+        List<Address> list=em.createQuery(query).setParameter("pattern","%banglore%").getResultList();
 
         for (Address ad:list) {
             System.out.println(ad);
         }
-
-
-
     }
     public static void metaModel(){
         Metamodel metamodel=Persistence.createEntityManagerFactory("hello-world").getMetamodel();
@@ -116,7 +139,7 @@ public class Main {
         Class.forName("com.mysql.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","aditya123");
         Statement stmt=con.createStatement();
-        stmt.execute("select * from address;");
+        stmt.execute("select * from Address;");
         ResultSet result=stmt.getResultSet();
         while(result.next()){
             System.out.println(result.getObject(1)+" "+result.getObject(2)+" "
@@ -140,7 +163,6 @@ public class Main {
         ///em.getTransaction().commit();
         for (Address a:address) {
             System.out.println(a);
-            a.setState("bihar");
         }
 
 

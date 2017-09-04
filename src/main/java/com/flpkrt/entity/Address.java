@@ -1,34 +1,30 @@
 package com.flpkrt.entity;
 
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import com.google.inject.persist.Transactional;
+import org.hibernate.annotations.ColumnTransformer;
+import org.hibernate.annotations.Formula;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Table(name = "address")
 @Entity
-@org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE)
 public class Address {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     @NotNull
     private String street;
-    private String city;
-    private String state;
 
+    private String city;
+
+    private String state;
     @NotNull
     @NotEmpty
     private String country;
     @NotNull
-    @Range(max =6 ,message = "the size must be proper")
     private String pincode;
 
     public int getId() {
