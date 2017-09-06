@@ -1,6 +1,8 @@
 package com.flpkrt;
 
 import com.flpkrt.entity.*;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataBuilder;
 import org.hibernate.boot.MetadataSources;
@@ -19,30 +21,59 @@ import javax.persistence.metamodel.Metamodel;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.sql.*;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class Main {
     public static void main(String args[]) throws SQLException, ClassNotFoundException {
-            EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
-            User u=new User();
-            u.setFirstname("aditya");
-            u.setLastname("singh");
+        EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
+        User u=new User();
+        u.setFirstname("aditya");
+        u.setLastname("singh");
 
-            UserAddress uad=new UserAddress();
-            uad.setStreet("green glen");
+        UserAddress uad=new UserAddress();
+        uad.setStreet("green glen");
 
-            u.setAddress(uad);
-            u.setDeliveryAddress(uad);
+        u.setAddress(uad);
+        u.setDeliveryAddress(uad);
+        u.setAmount(new MonetoryAmount(new BigDecimal("123123"), Currency.getInstance(Locale.US)));
+        em.getTransaction().begin();
+        em.persist(u);
+        em.flush();
+        em.getTransaction().commit();
 
-            em.getTransaction().begin();
-            em.persist(u);
-            em.flush();
-            em.getTransaction().commit();
+
+        List<User> list=em.createQuery("select u from User u").getResultList();
+        for (User u1:list) {
+            System.out.println(u1);
+        }
+
+    }
+
+    public static void embededEntity(){
+        EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
+        User u=new User();
+        u.setFirstname("aditya");
+        u.setLastname("singh");
+
+        UserAddress uad=new UserAddress();
+        uad.setStreet("green glen");
+
+        u.setAddress(uad);
+        u.setDeliveryAddress(uad);
+
+        em.getTransaction().begin();
+        em.persist(u);
+        em.flush();
+        em.getTransaction().commit();
 
 
-            List<User> list=em.createQuery("select u from User u").getResultList();
+        List<User> list=em.createQuery("select u from User u").getResultList();
         for (User u1:list) {
             System.out.println(u1);
         }

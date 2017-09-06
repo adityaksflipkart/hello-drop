@@ -27,6 +27,19 @@ public class User {
             @AttributeOverride(name = "country",column = @Column(name="deliverycountry"))})
     private UserAddress deliveryAddress;
 
+    @NotNull
+    @Convert(converter = MonetoryConvertor.class)
+    @Column(name = "basecost")
+    private MonetoryAmount amount;
+
+    public MonetoryAmount getAmount() {
+        return amount;
+    }
+
+    public void setAmount(MonetoryAmount amount) {
+        this.amount = amount;
+    }
+
     public UserAddress getAddress() {
         return address;
     }
@@ -75,6 +88,7 @@ public class User {
                 ", lastname='" + lastname + '\'' +
                 ", address=" + address +
                 ", deliveryAddress=" + deliveryAddress +
+                ", amount=" + amount +
                 '}';
     }
 }
