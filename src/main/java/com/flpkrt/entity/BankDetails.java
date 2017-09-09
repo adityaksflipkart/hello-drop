@@ -8,7 +8,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "bankDetailId")
+@DiscriminatorValue("bd")
 public class BankDetails extends BillingDetail{
 
     @NotNull

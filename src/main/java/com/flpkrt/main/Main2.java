@@ -11,6 +11,51 @@ import java.util.List;
 
 public class Main2 {
     public static void main(String args[]){
+
+
+    }
+    private static void singleTaleHybrid(){
+        EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
+        BankDetails b=new BankDetails();
+        b.setFirstName("aditya");
+        b.setLastName("singh");
+        b.setAccountNumber("1231231231231");
+        b.setAccountType("saving");
+        b.setIifcCode("CITI000005");
+        b.setBankName("citi");
+
+        CreditCardDetails c=new CreditCardDetails();
+        c.setFirstName("aditya");
+        c.setLastName("singh");
+        c.setCardNumber("12312312312312321");
+        c.setCvv("154");
+        c.setExpiryDate(new Date());
+
+
+        em.getTransaction().begin();
+        em.persist(b);
+        em.persist(c);
+        em.flush();
+        em.getTransaction().commit();
+
+        List<BankDetails> l=em.createQuery("select b from BankDetails b", BankDetails.class).getResultList();
+        for (BankDetails d:l) {
+            System.out.println(d);
+        }
+
+
+        List<CreditCardDetails> l1=em.createQuery("select b from CreditCardDetails b", CreditCardDetails.class).getResultList();
+        for (CreditCardDetails d:l1) {
+            System.out.println(d);
+        }
+
+        BillingDetail l2=em.find(BillingDetail.class,79);
+        /*for (CreditCardDetails d:l2) {
+            System.out.println(d);
+        }*/
+        System.out.println(l2);
+    }
+    private static void tablePerClassWithJoin(){
         EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
         BankDetails b=new BankDetails();
         b.setFirstName("aditya");
@@ -50,7 +95,6 @@ public class Main2 {
             System.out.println(d);
         }*/
         System.out.println(l2);
-
     }
     private static void singleTableIheritence(){
         EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();

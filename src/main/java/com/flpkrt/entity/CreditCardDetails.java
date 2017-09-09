@@ -4,12 +4,18 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "creditCardId")
+@SecondaryTable(name="CreditCardDetails",pkJoinColumns = @PrimaryKeyJoinColumn(name="creditCardId"))
+@DiscriminatorValue("cc")
 public class CreditCardDetails extends BillingDetail{
 
+    @Column(table = "CreditCardDetails")
     private String cardNumber;
+
     @Temporal(TemporalType.DATE)
+    @Column(table = "CreditCardDetails")
     private Date expiryDate;
+
+    @Column(table = "CreditCardDetails")
     private String cvv;
 
     public String getCardNumber() {
