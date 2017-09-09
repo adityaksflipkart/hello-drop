@@ -4,10 +4,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "bankdetails")
-//@DiscriminatorValue("bd")
+@Entity
+@PrimaryKeyJoinColumn(name = "bankDetailId")
 public class BankDetails extends BillingDetail{
 
     @NotNull
@@ -17,6 +18,7 @@ public class BankDetails extends BillingDetail{
     @NotEmpty
     private String bankName;
     private String iifcCode;
+
     public String getAccountNumber() {
         return accountNumber;
     }

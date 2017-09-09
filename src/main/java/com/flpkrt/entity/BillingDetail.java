@@ -8,8 +8,7 @@ import java.io.Serializable;
 
 
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "bd_type")
-//@DiscriminatorFormula(value = "case when cardNumber is not null then 'cc' else 'bd' end")
+@DiscriminatorColumn(name = "bdtype")
 @Entity
 public abstract class BillingDetail implements Serializable {
 

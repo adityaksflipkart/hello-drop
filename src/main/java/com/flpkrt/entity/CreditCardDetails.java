@@ -1,13 +1,10 @@
 package com.flpkrt.entity;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name="creditcarddetails")
-//@DiscriminatorValue("cc")
+@Entity
+@PrimaryKeyJoinColumn(name = "creditCardId")
 public class CreditCardDetails extends BillingDetail{
 
     private String cardNumber;
