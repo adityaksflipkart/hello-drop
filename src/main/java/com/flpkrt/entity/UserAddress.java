@@ -1,6 +1,7 @@
 package com.flpkrt.entity;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class UserAddress {
@@ -9,6 +10,17 @@ public class UserAddress {
     private String city;
     private String state;
     private String country;
+
+    @NotNull
+    private ZipCode pincode;
+
+    public ZipCode getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(ZipCode pincode) {
+        this.pincode = pincode;
+    }
 
     public String getStreet() {
         return street;
@@ -49,6 +61,7 @@ public class UserAddress {
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", country='" + country + '\'' +
+                ", pincode=" + pincode +
                 '}';
     }
 }

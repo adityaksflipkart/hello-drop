@@ -1,8 +1,6 @@
-package com.flpkrt;
+package com.flpkrt.main;
 
 import com.flpkrt.entity.*;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataBuilder;
 import org.hibernate.boot.MetadataSources;
@@ -21,7 +19,6 @@ import javax.persistence.metamodel.Metamodel;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Currency;
@@ -31,13 +28,19 @@ import java.util.Set;
 
 public class Main {
     public static void main(String args[]) throws SQLException, ClassNotFoundException {
+
+    }
+
+    public static void customConvertors(){
         EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
         User u=new User();
         u.setFirstname("aditya");
         u.setLastname("singh");
 
+
         UserAddress uad=new UserAddress();
         uad.setStreet("green glen");
+        uad.setPincode(new ZipCode("12345"));
 
         u.setAddress(uad);
         u.setDeliveryAddress(uad);

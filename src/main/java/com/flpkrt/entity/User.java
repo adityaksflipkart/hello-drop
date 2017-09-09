@@ -8,6 +8,10 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class User {
 
+    @Converts(value = {@Convert(attributeName = "basecost",converter = MonetoryConvertor.class),
+    @Convert(attributeName = "address.pincode",converter = ZipCodeConvertor.class),
+    @Convert(attributeName = "deliveryAddress.pincode",converter = ZipCodeConvertor.class)})
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
@@ -24,7 +28,8 @@ public class User {
     @AttributeOverrides(value = {@AttributeOverride(name = "street",column = @Column(name="deliverystreet")),
             @AttributeOverride(name = "city",column = @Column(name="deliverycity")),
             @AttributeOverride(name = "state",column = @Column(name="deliverystate")),
-            @AttributeOverride(name = "country",column = @Column(name="deliverycountry"))})
+            @AttributeOverride(name = "country",column = @Column(name="deliverycountry")),
+            @AttributeOverride(name ="pincode.zipcode" ,column = @Column(name="deliveryzipcode"))})
     private UserAddress deliveryAddress;
 
     @NotNull
