@@ -37,6 +37,23 @@ public class User {
     @Column(name = "basecost")
     private MonetoryAmount amount;
 
+
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private BillingDetail billingDetail;
+
+    @Column(insertable = false,updatable = false)
+    private Integer billingDetail_id;
+
+    public BillingDetail getBillingDetail() {
+        return billingDetail;
+    }
+
+    public void setBillingDetail(BillingDetail billingDetail) {
+        this.billingDetail = billingDetail;
+    }
+
     public MonetoryAmount getAmount() {
         return amount;
     }
@@ -94,6 +111,7 @@ public class User {
                 ", address=" + address +
                 ", deliveryAddress=" + deliveryAddress +
                 ", amount=" + amount +
+                ", billingDetail=" + billingDetail +
                 '}';
     }
 }
