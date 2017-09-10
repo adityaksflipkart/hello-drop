@@ -14,6 +14,8 @@ public class User {
     @Convert(attributeName = "address.pincode",converter = ZipCodeConvertor.class),
     @Convert(attributeName = "deliveryAddress.pincode",converter = ZipCodeConvertor.class)})
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int userId;
@@ -42,12 +44,9 @@ public class User {
 
 
 
-    @OneToMany(mappedBy = "user")
-    private Set<BillingDetail> billingDetail=new HashSet<BillingDetail>();
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user",targetEntity = BillingDetail.class)
+    private Set<BillingDetail> billingDetail;
 
-  /*  @Column(insertable = false,updatable = false)
-    private Integer billingDetail_id;
-*/
     public Set<BillingDetail> getBillingDetail() {
         return billingDetail;
     }

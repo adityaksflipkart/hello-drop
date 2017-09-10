@@ -49,8 +49,8 @@ public class Main3 {
         u.setAmount(new MonetoryAmount(new BigDecimal("123123"), Currency.getInstance(Locale.US)));
         em.getTransaction().begin();
         em.persist(u);
-        em.persist(c);
-        em.persist(b);
+         em.persist(c);
+         em.persist(b);
         em.flush();
         em.getTransaction().commit();
 
@@ -60,7 +60,7 @@ public class Main3 {
             System.out.println(u1);
         }
 
-        u=em.find(User.class,109);
+         u=em.find(User.class,138);
         System.out.println(u);
     }
     public static void manyToOneMultiPlicity(){
