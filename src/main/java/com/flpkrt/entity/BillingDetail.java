@@ -1,5 +1,6 @@
 package com.flpkrt.entity;
 
+import net.bytebuddy.dynamic.loading.ClassInjector;
 import org.hibernate.annotations.DiscriminatorFormula;
 
 import javax.persistence.*;
@@ -22,6 +23,10 @@ public abstract class BillingDetail implements Serializable {
 
     @Column(nullable = false)
     private String lastName;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId")
+    private User user;
 
     public String getFirstName() {
         return firstName;

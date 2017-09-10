@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -14,7 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    private int userId;
 
     @NotNull
     @NotEmpty
@@ -40,17 +42,17 @@ public class User {
 
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private BillingDetail billingDetail;
+    @OneToMany(mappedBy = "user")
+    private Set<BillingDetail> billingDetail=new HashSet<BillingDetail>();
 
-    @Column(insertable = false,updatable = false)
+  /*  @Column(insertable = false,updatable = false)
     private Integer billingDetail_id;
-
-    public BillingDetail getBillingDetail() {
+*/
+    public Set<BillingDetail> getBillingDetail() {
         return billingDetail;
     }
 
-    public void setBillingDetail(BillingDetail billingDetail) {
+    public void setBillingDetail(Set<BillingDetail> billingDetail) {
         this.billingDetail = billingDetail;
     }
 
@@ -86,12 +88,12 @@ public class User {
         this.lastname = lastname;
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int id) {
+        this.userId = id;
     }
 
     public UserAddress getDeliveryAddress() {
@@ -103,9 +105,10 @@ public class User {
     }
 
     @Override
-    public String toString() {
+    public String
+    toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + userId +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", address=" + address +
