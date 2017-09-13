@@ -18,15 +18,14 @@ public class Item {
 
   @ElementCollection
   @CollectionTable(name = "Image",joinColumns = {@JoinColumn(name="itemid")})
-  @AttributeOverride(name = "imagen",column = @Column(name="imagename"))
-  @OrderBy("length , bredth desc")
-  private Set<Image> images=new LinkedHashSet<Image>();
+  @MapKeyColumn(name = "filename")
+  private Map<String,Image> images=new HashMap<String,Image>();
 
-    public Set<Image> getImages() {
+    public  Map<String,Image>getImages() {
         return images;
     }
 
-    public void setImages(Set<Image> images) {
+    public void setImages(Map<String,Image> images) {
         this.images = images;
     }
 

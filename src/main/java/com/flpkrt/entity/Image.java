@@ -4,27 +4,17 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Image {
-
-    private String filename;
-    private String imagen;
+    private String imagename;
     private int length;
     private int bredth;
 
-    public String getFilename() {
-        return filename;
+
+    public String getImagename() {
+        return imagename;
     }
 
-    public Image setFilename(String filename) {
-        this.filename = filename;
-        return this;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public Image setImagen(String imagename) {
-        this.imagen = imagename;
+    public Image setImagename(String imagename) {
+        this.imagename = imagename;
         return this;
     }
 
@@ -55,14 +45,12 @@ public class Image {
 
         if (length != image.length) return false;
         if (bredth != image.bredth) return false;
-        if (!filename.equals(image.filename)) return false;
-        return imagen.equals(image.imagen);
+        return imagename.equals(image.imagename);
     }
 
     @Override
     public int hashCode() {
-        int result = filename.hashCode();
-        result = 31 * result + imagen.hashCode();
+        int result = imagename.hashCode();
         result = 31 * result + length;
         result = 31 * result + bredth;
         return result;
@@ -71,8 +59,7 @@ public class Image {
     @Override
     public String toString() {
         return "Image{" +
-                "filename='" + filename + '\'' +
-                ", imagen='" + imagen + '\'' +
+                "imagen='" + imagename + '\'' +
                 ", length=" + length +
                 ", bredth=" + bredth +
                 '}';
