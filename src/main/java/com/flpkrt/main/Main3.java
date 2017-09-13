@@ -36,6 +36,9 @@ public class Main3 {
         detail.add(b);
         u.setBillingDetail(detail);
 
+        c.setUser(u);
+        b.setUser(u);
+
         UserAddress uad=new UserAddress();
         uad.setStreet("green glen");
         uad.setPincode(new ZipCode("12345"));

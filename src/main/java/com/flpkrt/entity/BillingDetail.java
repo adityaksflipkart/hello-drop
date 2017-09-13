@@ -29,6 +29,17 @@ public abstract class BillingDetail implements Serializable {
     @JoinColumn(name = "user_userId",nullable = false,updatable = false)
     private User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Column(insertable = false,updatable = false)
+    private Integer user_userId;
+
     public String getFirstName() {
         return firstName;
     }

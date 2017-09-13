@@ -44,7 +44,7 @@ public class User {
 
 
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user",targetEntity = BillingDetail.class)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user",targetEntity = BillingDetail.class,cascade = CascadeType.PERSIST)
     private Set<BillingDetail> billingDetail;
 
     public Set<BillingDetail> getBillingDetail() {

@@ -1,29 +1,33 @@
 package com.flpkrt.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.*;
 
 @Entity
 public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    private int itemid;
     @NotNull
     private String name;
     private String  companyname ;
     private Measurement measurement;
     private Weight weighing;
 
-    public int getId() {
-        return id;
+  @ElementCollection
+  @CollectionTable(name = "Image",joinColumns = {@JoinColumn(name="itemid")})
+  @AttributeOverride(name = "imagen",column = @Column(name="imagename"))
+  @OrderBy("length , bredth desc")
+  private Set<Image> images=new LinkedHashSet<Image>();
+
+    public Set<Image> getImages() {
+        return images;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 
     public String getName() {
@@ -61,7 +65,7 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "id=" + id +
+                "id=" + itemid +
                 ", name='" + name + '\'' +
                 ", companyname='" + companyname + '\'' +
                 ", measurement=" + measurement +

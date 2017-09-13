@@ -95,7 +95,6 @@
             <artifactId>dropwizard-guice</artifactId>
             <version>0.8.4.0</version>
         </dependency>
-
         <!-- persistance dependencies -->
         <dependency>
             <groupId>mysql</groupId>
