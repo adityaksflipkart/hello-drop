@@ -1,6 +1,7 @@
 package com.flpkrt.main;
 
 import com.flpkrt.entity.Image;
+import com.flpkrt.entity.ImageName;
 import com.flpkrt.entity.Item;
 
 import javax.persistence.EntityManager;
@@ -30,10 +31,10 @@ public class Main4 {
         image4.setBredth(12213).setImagename("d.jpeg").setLength(1200);
 
 
-        item.getImages().put("a",image1);
-        item.getImages().put("b",image2);
-        item.getImages().put("c",image3);
-        item.getImages().put("d",image4);
+        item.getImages().put(new ImageName().setExt("jpg").setName("water"),image1);
+        item.getImages().put(new ImageName().setName("fire").setExt("jpeg"),image2);
+        item.getImages().put(new ImageName().setExt("mpg").setName("earth"),image3);
+        item.getImages().put(new ImageName().setName("sky").setExt("mpeg"),image4);
         em.getTransaction().begin();
         em.persist(item);
         em.flush();

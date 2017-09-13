@@ -18,14 +18,13 @@ public class Item {
 
   @ElementCollection
   @CollectionTable(name = "Image",joinColumns = {@JoinColumn(name="itemid")})
-  @MapKeyColumn(name = "filename")
-  private Map<String,Image> images=new HashMap<String,Image>();
+  private Map<ImageName,Image> images=new HashMap<ImageName,Image>();
 
-    public  Map<String,Image>getImages() {
+    public  Map<ImageName,Image>getImages() {
         return images;
     }
 
-    public void setImages(Map<String,Image> images) {
+    public void setImages(Map<ImageName,Image> images) {
         this.images = images;
     }
 
