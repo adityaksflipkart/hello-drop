@@ -15,12 +15,14 @@ public class Main5 {
 
         NewUser u=new NewUser();
         u.setAddress(ad).setFirstName("aditya").setLastName("singh");
-        ad.setUser(u);
 
         em.getTransaction().begin();
         em.persist(u);
         em.flush();
         em.getTransaction().commit();
+
+      /*  NewUser u=em.find(NewUser.class,207);
+        System.out.println(u);*/
     }
     public static void oneToOneSamekey(){
         EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();

@@ -1,35 +1,20 @@
 package com.flpkrt.entity2;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import java.net.UnknownServiceException;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class NewAddress {
     @Id
-    @GeneratedValue(generator = "addresskeygen")
-    @GenericGenerator(name = "addresskeygen",strategy = "foreign",
-            parameters = @org.hibernate.annotations.Parameter(name="property",value = "newuser"))
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     private String streetName;
     private String houseNumber;
     private String city;
     private String state;
-
-
-    @OneToOne(optional = false)
-    @PrimaryKeyJoinColumn
-    private NewUser user;
-
-    public NewUser getUser() {
-        return user;
-    }
-
-    public void setUser(NewUser user) {
-        this.user = user;
-    }
 
     public int getId() {
         return id;

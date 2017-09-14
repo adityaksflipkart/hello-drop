@@ -11,7 +11,8 @@ public class NewUser {
     private String firstName;
     private String lastName;
 
-    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY,optional = false,cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY,optional = false,cascade = CascadeType.PERSIST)
+    @JoinTable(name = "addressmapping",joinColumns = @JoinColumn(name = "userid"),inverseJoinColumns = @JoinColumn(name="addressid"))
     private NewAddress address;
 
     public int getId() {
