@@ -6,12 +6,12 @@ import javax.persistence.*;
 public class NewUser {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String firstName;
     private String lastName;
 
-    @OneToOne(fetch = FetchType.LAZY,optional = false)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY,optional = false,cascade = CascadeType.PERSIST)
     private NewAddress address;
 
     public int getId() {

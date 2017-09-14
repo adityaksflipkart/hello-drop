@@ -10,6 +10,20 @@ import javax.persistence.Persistence;
 public class Main5 {
     public static void main(String args[]){
         EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
+        NewAddress ad=new NewAddress();
+        ad.setCity("bengaluru").setHouseNumber("401B").setState("karnataka").setStreetName("bakasur");
+
+        NewUser u=new NewUser();
+        u.setAddress(ad).setFirstName("aditya").setLastName("singh");
+        ad.setUser(u);
+
+        em.getTransaction().begin();
+        em.persist(u);
+        em.flush();
+        em.getTransaction().commit();
+    }
+    public static void oneToOneSamekey(){
+        EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
        /* NewAddress ad=new NewAddress();
         ad.setCity("bengaluru").setHouseNumber("401B").setState("karnataka").setStreetName("bakasur");
         em.getTransaction().begin();
@@ -27,7 +41,6 @@ public class Main5 {
 
         NewUser u=em.find(NewUser.class,207);
         System.out.println(u);
-
 
     }
 }
