@@ -13,9 +13,6 @@ public class User {
     @Converts(value = {@Convert(attributeName = "basecost",converter = MonetoryConvertor.class),
     @Convert(attributeName = "address.pincode",converter = ZipCodeConvertor.class),
     @Convert(attributeName = "deliveryAddress.pincode",converter = ZipCodeConvertor.class)})
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int userId;
