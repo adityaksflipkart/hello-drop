@@ -1,5 +1,8 @@
 package com.flpkrt.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.*;
@@ -16,9 +19,21 @@ public class Item {
     private Measurement measurement;
     private Weight weighing;
 
-  @ElementCollection
-  @CollectionTable(name = "Image",joinColumns = {@JoinColumn(name="itemid")})
-  private Map<ImageName,Image> images=new HashMap<ImageName,Image>();
+    @OneToMany(mappedBy = "item",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    //@OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<Bid> bids=new HashSet<Bid>();
+
+    public Set<Bid> getBids() {
+        return bids;
+    }
+
+    public void setBids(Set<Bid> bids) {
+        this.bids = bids;
+    }
+
+    @ElementCollection
+    @CollectionTable(name = "Image",joinColumns = {@JoinColumn(name="itemid")})
+    private Map<ImageName,Image> images=new HashMap<ImageName,Image>();
 
     public  Map<ImageName,Image>getImages() {
         return images;

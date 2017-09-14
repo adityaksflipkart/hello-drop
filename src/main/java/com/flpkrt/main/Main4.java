@@ -1,14 +1,71 @@
 package com.flpkrt.main;
 
+import com.flpkrt.entity.Bid;
 import com.flpkrt.entity.Image;
 import com.flpkrt.entity.ImageName;
 import com.flpkrt.entity.Item;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import java.util.Date;
 
 public class Main4 {
     public static void main(String args[]) {
+       EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
+ /*        Item item=new Item();
+        item.setCompanyname("ms");
+        item.setName("asdad");
+
+        Bid b1=new Bid();
+        b1.setAmount(213);
+        b1.setBidDate(new Date());
+        b1.setItem(item);
+
+        Bid b2=new Bid();
+        b2.setAmount(21233);
+        b2.setBidDate(new Date());
+        b2.setItem(item);
+
+        Bid b3=new Bid();
+        b3.setAmount(2123323);
+        b3.setBidDate(new Date());
+        b3.setItem(item);
+
+        item.getBids().add(b1);
+        item.getBids().add(b2);
+        item.getBids().add(b3);
+
+        em.getTransaction().begin();
+        em.persist(item);
+        em.flush();
+        em.getTransaction().commit();*/
+        em.getTransaction().begin();
+        Item item=em.find(Item.class,203);
+    /*    Bid d=item.getBids().iterator().next();
+        item.getBids().remove(d);*/
+
+        em.remove(item);
+        em.flush();
+        em.getTransaction().commit();
+      em.close();
+    }
+    private void manytoone(){
+        EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
+        Item item=new Item();
+        item.setCompanyname("ms");
+        item.setName("asdad");
+
+        Bid b=new Bid();
+        b.setAmount(213);
+        b.setBidDate(new Date());
+        b.setItem(item);
+        em.getTransaction().begin();
+        em.persist(item);
+        em.persist(b);
+        em.flush();
+            em.getTransaction().commit();
+    }
+    private static void entityCollection(){
 
         EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
         Item item=new Item();
@@ -39,14 +96,6 @@ public class Main4 {
         em.persist(item);
         em.flush();
         em.getTransaction().commit();
-   /*     Item item=em.find(Item.class,187);
-
-
-        for (Image image:item.getImages()) {
-            System.out.println(image);
-        }*/
-
 
     }
-
 }
