@@ -19,21 +19,54 @@ public class Item {
     private Measurement measurement;
     private Weight weighing;
 
-    @OneToMany(mappedBy = "item",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
-    //@OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<Bid> bids=new HashSet<Bid>();
+  /*  @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST,mappedBy = "items")
+    private Set<Category> cat=new HashSet<Category>();
 
-    public Set<Bid> getBids() {
+    public Set<Category> getCat() {
+        return cat;
+    }
+
+    public void setCat(Set<Category> cat) {
+        this.cat = cat;
+    }*/
+
+
+  @OneToMany(mappedBy = "item")
+  private Set<ItemCategoryMap> catMap=new HashSet<ItemCategoryMap>();
+
+    public Set<ItemCategoryMap> getCatMap() {
+        return catMap;
+    }
+
+    public void setCatMap(Set<ItemCategoryMap> catMap) {
+        this.catMap = catMap;
+    }
+
+    /*  @OneToMany(mappedBy = "item",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+            //@OrderColumn(name="oderid",nullable = false)
+            //@OnDelete(action = OnDeleteAction.CASCADE)
+            private Set<Bid> bids=new HashSet<Bid>();
+        */
+  /*  public Set<Bid> getBids() {
         return bids;
     }
 
     public void setBids(Set<Bid> bids) {
         this.bids = bids;
     }
-
+*/
     @ElementCollection
     @CollectionTable(name = "Image",joinColumns = {@JoinColumn(name="itemid")})
     private Map<ImageName,Image> images=new HashMap<ImageName,Image>();
+
+
+    public int getItemid() {
+        return itemid;
+    }
+
+    public void setItemid(int itemid) {
+        this.itemid = itemid;
+    }
 
     public  Map<ImageName,Image>getImages() {
         return images;
@@ -78,11 +111,33 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "id=" + itemid +
+                "itemid=" + itemid +
                 ", name='" + name + '\'' +
                 ", companyname='" + companyname + '\'' +
                 ", measurement=" + measurement +
                 ", weighing=" + weighing +
+                ", catMap=" + catMap +
+                ", images=" + images +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Item item = (Item) o;
+
+        if (itemid != item.itemid) return false;
+        if (!name.equals(item.name)) return false;
+        return companyname.equals(item.companyname);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = itemid;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + companyname.hashCode();
+        return result;
     }
 }

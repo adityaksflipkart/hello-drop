@@ -21,6 +21,7 @@ public class Main4 {
         b1.setBidDate(new Date());
         b1.setItem(item);
 
+
         Bid b2=new Bid();
         b2.setAmount(21233);
         b2.setBidDate(new Date());
@@ -37,17 +38,16 @@ public class Main4 {
 
         em.getTransaction().begin();
         em.persist(item);
+        em.persist(b1);
         em.flush();
         em.getTransaction().commit();*/
-        em.getTransaction().begin();
-        Item item=em.find(Item.class,203);
-    /*    Bid d=item.getBids().iterator().next();
-        item.getBids().remove(d);*/
 
-        em.remove(item);
-        em.flush();
+
+        em.getTransaction().begin();
+        Bid b=em.find(Bid.class,222);
+        System.out.println(b);
         em.getTransaction().commit();
-      em.close();
+        em.close();
     }
     private void manytoone(){
         EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();

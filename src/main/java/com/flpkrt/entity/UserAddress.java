@@ -2,6 +2,8 @@ package com.flpkrt.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Embeddable
 public class UserAddress {
@@ -13,6 +15,19 @@ public class UserAddress {
 
     @NotNull
     private ZipCode pincode;
+
+
+    @OneToMany(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @JoinTable(name = "userdeliverymap",joinColumns = @JoinColumn(name="userid"),inverseJoinColumns = @JoinColumn(name = "deliveryid"))
+    private Set<Delivery> deliveries=new HashSet<Delivery>();
+
+    public Set<Delivery> getDeliveries() {
+        return deliveries;
+    }
+
+    public void setDeliveries(Set<Delivery> deliveries) {
+        this.deliveries = deliveries;
+    }
 
     public ZipCode getPincode() {
         return pincode;

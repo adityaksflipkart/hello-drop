@@ -30,7 +30,8 @@ public class User {
             @AttributeOverride(name = "city",column = @Column(name="deliverycity")),
             @AttributeOverride(name = "state",column = @Column(name="deliverystate")),
             @AttributeOverride(name = "country",column = @Column(name="deliverycountry")),
-            @AttributeOverride(name ="pincode.zipcode" ,column = @Column(name="deliveryzipcode"))})
+            @AttributeOverride(name ="pincode.zipcode" ,column = @Column(name="deliveryzipcode")),
+            @AttributeOverride(name="deliveries",column = @Column(name="deliveryadd"))})
     private UserAddress deliveryAddress;
 
     @NotNull

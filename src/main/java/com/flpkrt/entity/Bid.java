@@ -10,7 +10,8 @@ public class Bid {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false,name = "itemid")
+    //@JoinTable(name = "itembidmap",joinColumns = @JoinColumn(name="bidid"),inverseJoinColumns = @JoinColumn(name="itemid"))
+    @JoinColumn(name="itemid")
     private Item item;
 
     private Date bidDate;
