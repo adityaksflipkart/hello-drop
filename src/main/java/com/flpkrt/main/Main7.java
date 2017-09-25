@@ -3,19 +3,48 @@ package com.flpkrt.main;
 import com.flpkrt.Interceptor.MyInterceptor;
 import com.flpkrt.entity.*;
 import com.flpkrt.entity2.TestEntity;
+import org.hibernate.ReplicationMode;
 import org.hibernate.Session;
 import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.jpa.AvailableSettings;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.util.*;
 
+
 public class Main7 {
 
     public static void main(String args[]) {
 
         EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
+        AuditReader au= AuditReaderFactory.get(em);
+        List<Number> revisions=au.getRevisions(TestEntity.class,382);
+
+        for (Number n:revisions) {
+            System.out.println(n);
+        }
+
+        TestEntity t=au.find(TestEntity.class,382,3);
+
+        em.getTransaction().begin();
+        em.unwrap(Session.class).replicate(t, ReplicationMode.OVERWRITE);
+        em.flush();
+        em.getTransaction().commit();
+
+
+        TestEntity t1=em.find(TestEntity.class,382);
+        System.out.println(t1);
+
+    }
+
+    private static void interceptors(){
+        Map<String,String> properties=new HashMap<String,String>();
+        properties.put(AvailableSettings.SESSION_INTERCEPTOR, MyInterceptor.class.getName());
+        EntityManager em=Persistence.createEntityManagerFactory("hello-world",properties).createEntityManager();
 
         em.getTransaction().begin();
 
@@ -31,9 +60,6 @@ public class Main7 {
         em.persist(t);
         em.flush();
         em.getTransaction().commit();
-
-        //em.close();
-
     }
 
 

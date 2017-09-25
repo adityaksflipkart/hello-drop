@@ -3,11 +3,15 @@ package com.flpkrt.entity2;
 
 import com.flpkrt.Interceptor.Auditable;
 import com.flpkrt.main.PersistEntityListner;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 @Table(indexes = @Index(name = "",columnList = "emailid"))
 @Entity
 @EntityListeners({PersistEntityListner.class,})
+@Audited
+@AuditTable(value = "testentity_aud")
 public class TestEntity implements Auditable{
 
     private int id;

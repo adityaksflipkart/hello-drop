@@ -95,6 +95,14 @@
             <artifactId>dropwizard-guice</artifactId>
             <version>0.8.4.0</version>
         </dependency>
+        <!--hibernate envers required to enable logging and version control-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-envers</artifactId>
+            <version>5.2.10.Final</version>
+        </dependency>
+
+
         <!-- persistance dependencies -->
         <dependency>
             <groupId>mysql</groupId>
