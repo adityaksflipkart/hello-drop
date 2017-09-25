@@ -26,7 +26,7 @@ public abstract class BillingDetail implements Serializable {
     private String lastName;
 
     @ManyToOne(fetch = FetchType.EAGER,optional = false,targetEntity = User.class)
-    @JoinColumn(name = "user_userId",nullable = false,updatable = false)
+    @JoinColumn(name = "user_userId",nullable = false,updatable = false,foreignKey = @ForeignKey(name = "dasdada"))
     private User user;
 
     public User getUser() {

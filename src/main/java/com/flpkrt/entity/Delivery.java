@@ -37,8 +37,9 @@ public class Delivery {
         return deliveryName;
     }
 
-    public void setDeliveryName(String deliveryName) {
+    public Delivery setDeliveryName(String deliveryName) {
         this.deliveryName = deliveryName;
+        return this;
     }
 
     @Override

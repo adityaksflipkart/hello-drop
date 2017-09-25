@@ -1,17 +1,23 @@
 package com.flpkrt.entity;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
+//@Proxy(lazy = false)
 public class Bid {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE})
     //@JoinTable(name = "itembidmap",joinColumns = @JoinColumn(name="bidid"),inverseJoinColumns = @JoinColumn(name="itemid"))
     @JoinColumn(name="itemid")
+   // @Fetch(FetchMode.SUBSELECT)
     private Item item;
 
     private Date bidDate;

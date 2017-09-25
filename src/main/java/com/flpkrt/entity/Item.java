@@ -1,15 +1,18 @@
 package com.flpkrt.entity;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Entity
+//@BatchSize(size = 3)
 public class Item {
 
+    public static final String ITEM_JOIN="ITEM_JOIN";
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int itemid;
@@ -30,7 +33,7 @@ public class Item {
         this.cat = cat;
     }*/
 
-
+/*
   @OneToMany(mappedBy = "item")
   private Set<ItemCategoryMap> catMap=new HashSet<ItemCategoryMap>();
 
@@ -40,23 +43,24 @@ public class Item {
 
     public void setCatMap(Set<ItemCategoryMap> catMap) {
         this.catMap = catMap;
-    }
+    }*/
 
-    /*  @OneToMany(mappedBy = "item",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
-            //@OrderColumn(name="oderid",nullable = false)
-            //@OnDelete(action = OnDeleteAction.CASCADE)
-            private Set<Bid> bids=new HashSet<Bid>();
-        */
-  /*  public Set<Bid> getBids() {
+      @OneToMany(mappedBy = "item",cascade = {CascadeType.DETACH,CascadeType.MERGE},fetch = FetchType.LAZY)
+     //@Fetch(FetchMode.SUBSELECT)
+      private Set<Bid> bids=new HashSet<Bid>();
+
+    public Set<Bid> getBids() {
         return bids;
     }
 
     public void setBids(Set<Bid> bids) {
         this.bids = bids;
     }
-*/
-    @ElementCollection
+
+
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "Image",joinColumns = {@JoinColumn(name="itemid")})
+   //@Fetch(FetchMode.SUBSELECT)
     private Map<ImageName,Image> images=new HashMap<ImageName,Image>();
 
 
@@ -116,7 +120,7 @@ public class Item {
                 ", companyname='" + companyname + '\'' +
                 ", measurement=" + measurement +
                 ", weighing=" + weighing +
-                ", catMap=" + catMap +
+
                 ", images=" + images +
                 '}';
     }

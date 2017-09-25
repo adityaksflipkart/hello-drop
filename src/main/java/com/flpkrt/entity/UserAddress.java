@@ -18,7 +18,8 @@ public class UserAddress {
 
 
     @OneToMany(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
-    @JoinTable(name = "userdeliverymap",joinColumns = @JoinColumn(name="userid"),inverseJoinColumns = @JoinColumn(name = "deliveryid"))
+    //@JoinTable(name = "userdeliverymap",joinColumns = @JoinColumn(name="userid"),inverseJoinColumns = @JoinColumn(name = "deliveryid"))
+    @JoinColumn(name="userid")
     private Set<Delivery> deliveries=new HashSet<Delivery>();
 
     public Set<Delivery> getDeliveries() {
@@ -77,6 +78,7 @@ public class UserAddress {
                 ", state='" + state + '\'' +
                 ", country='" + country + '\'' +
                 ", pincode=" + pincode +
+                ", deliveries=" + deliveries +
                 '}';
     }
 }

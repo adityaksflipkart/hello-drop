@@ -1,16 +1,24 @@
 package com.flpkrt.main;
 
-import com.flpkrt.entity.Category;
 import com.flpkrt.entity.Item;
-import com.flpkrt.entity.ItemCategoryMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import javax.swing.text.StyledEditorKit;
 
 public class Main6 {
 
     public static void main(String args[]){
+
+        EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
+        Item item=em.find(Item.class,213);
+        System.out.println(item);
+/*        for (Integer key:item.getBids().keySet()) {
+            System.out.println(key +" "+item.getBids().get(key));
+        }*/
+
+    }
+
+    private void ternaryRelation(){
         EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
 /*        em.getTransaction().begin();
         Category cat1=new Category();
@@ -47,8 +55,5 @@ public class Main6 {
         Item item=em.find(Item.class,272);
         System.out.println(item);
 
-        for (ItemCategoryMap mp:item.getCatMap()) {
-            System.out.println(mp);
-        }
     }
 }

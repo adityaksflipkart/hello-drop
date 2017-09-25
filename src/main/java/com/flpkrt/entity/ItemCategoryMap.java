@@ -31,7 +31,7 @@ public class ItemCategoryMap {
         this.category = category;
         this.id.categoryid=category.getId();
         this.id.itemid=item.getItemid();
-        item.getCatMap().add(this);
+
         category.getItemMap().add(this);
     }
 
