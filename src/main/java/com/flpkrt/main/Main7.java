@@ -1,7 +1,10 @@
 package com.flpkrt.main;
 
+import com.flpkrt.Interceptor.MyInterceptor;
 import com.flpkrt.entity.*;
-import org.hibernate.Hibernate;
+import com.flpkrt.entity2.TestEntity;
+import org.hibernate.Session;
+import org.hibernate.engine.spi.SessionImplementor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -11,6 +14,30 @@ import java.util.*;
 public class Main7 {
 
     public static void main(String args[]) {
+
+        EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
+
+        em.getTransaction().begin();
+
+
+        MyInterceptor interceptor=(MyInterceptor)((SessionImplementor)em.unwrap(Session.class)).getInterceptor();
+        interceptor.setEm(em);
+        interceptor.setUserId(12);
+        interceptor.setUserName("aditya");
+
+        TestEntity t=new TestEntity();
+        t.setEmailId("asafadfdsfsdf3487437834783478sdfsdfsfsdfsdfsdfsdsdf");
+        t.setUserName("asfsdfsdfsdf333333333");
+        em.persist(t);
+        em.flush();
+        em.getTransaction().commit();
+
+        //em.close();
+
+    }
+
+
+    private static void mergeCascade(){
         EntityManager em=Persistence.createEntityManagerFactory("hello-world").createEntityManager();
         CreditCardDetails c=new CreditCardDetails();
         c.setFirstName("aditya");

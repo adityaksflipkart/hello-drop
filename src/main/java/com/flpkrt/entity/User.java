@@ -1,5 +1,6 @@
 package com.flpkrt.entity;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -43,6 +44,7 @@ public class User {
 
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = {CascadeType.PERSIST,CascadeType.REFRESH})
+    @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
     private Set<BillingDetail> billingDetail;
 
     public Set<BillingDetail> getBillingDetail() {

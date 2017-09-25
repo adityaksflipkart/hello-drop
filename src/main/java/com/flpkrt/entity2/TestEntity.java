@@ -1,10 +1,14 @@
 package com.flpkrt.entity2;
 
 
+import com.flpkrt.Interceptor.Auditable;
+import com.flpkrt.main.PersistEntityListner;
+
 import javax.persistence.*;
 @Table(indexes = @Index(name = "",columnList = "emailid"))
 @Entity
-public class TestEntity {
+@EntityListeners({PersistEntityListner.class,})
+public class TestEntity implements Auditable{
 
     private int id;
 
@@ -57,5 +61,27 @@ public class TestEntity {
                 ", emailId='" + emailId + '\'' +
                 ", userName='" + userName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TestEntity that = (TestEntity) o;
+
+        if (id != that.id) return false;
+        if (version != that.version) return false;
+        if (!emailId.equals(that.emailId)) return false;
+        return userName.equals(that.userName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + version;
+        result = 31 * result + emailId.hashCode();
+        result = 31 * result + userName.hashCode();
+        return result;
     }
 }

@@ -1,6 +1,7 @@
 package com.flpkrt.entity;
 
 import net.bytebuddy.dynamic.loading.ClassInjector;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.DiscriminatorFormula;
 import org.hibernate.usertype.UserCollectionType;
 
@@ -25,8 +26,9 @@ public abstract class BillingDetail implements Serializable {
     @Column(nullable = false)
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.EAGER,optional = false,targetEntity = User.class)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "user_userId",nullable = false,updatable = false,foreignKey = @ForeignKey(name = "dasdada"))
+    @Cascade(org.hibernate.annotations.CascadeType.REPLICATE)
     private User user;
 
     public User getUser() {
